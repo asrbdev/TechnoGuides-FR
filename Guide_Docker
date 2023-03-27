@@ -4,18 +4,22 @@
 #Supprimer les anciennes versions de composants Docker installés (IMPORTANT !)
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
-
+#Installation de quelques pré-requis
+sudo apt-get install ca-certificates curl gnupg lsb-release
+#Téléchargement de la clé GPG pour Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
+#Ajout du dépôt APT pour Docker
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+#Mise à jour du cache et installation des composants Docker
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
+
 #Lister les versions de Docker disponibles
 apt-cache madison docker-ce
-#Présents dans la colonne, les ID de versions sont semblables au suivant:
+#Présents dans la seconde colonne, les ID de versions sont semblables au suivant:
 5:20.10.12~3-0~debian-buster
 #Installer une version spécifique de Docker
 sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
@@ -37,10 +41,16 @@ docker run hello-world
 #Afficher TOUS les conteneurs Docker présents
 docker ps -a
 
-#Le conteneur est dans cet état car il n'a aucune opération supplémentaire à effectuer. Pour le garder actif malgré cela, il doit avoir été lancé en mode interactif.
+#Le conteneur est dans cet état car il n'a aucune opération supplémentaire à effectuer.
+#Pour le garder actif malgré cela, il doit avoir été lancé en mode interactif.
 
 #Créer un conteneur à partir d'une image
+docker run nom_image
+#Créer un conteneur avec un nom spécifique
 docker run --name=nom_conteneur nom_image
+#Créer un conteneur qui sera supprimé automatiquement une fois stoppé
+docker run --rm nom_image
+
 #Démarrer un conteneur
 docker start nom_ou_ID_conteneur
 #Démarrer un conteneur en arrière-plan (mode détaché)
@@ -49,6 +59,7 @@ docker start -d nom_ou_ID_conteneur
 docker start -it nom_ou_ID_conteneur
 #Arrêter un conteneur
 docker stop nom_ou_ID_conteneur
+
 #Rechercher des images dans le hub docker
 docker search termes_de_la_recherche
 #Télécharger une image depuis le hub
