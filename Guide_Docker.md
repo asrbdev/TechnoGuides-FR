@@ -53,120 +53,124 @@ sudo usermod -aG docker $USER
 
 
 
-# Tester l'installation en lançant le container hello-world
+# Tester l'installation
+On peut vérifier si notre installation est OK en lançant le container `hello-world` :
 ```bash
 docker run hello-world
 ```
+On peut également exécuter une commande plus simple (pour lister les conteneurs  par exemple ou encore pour afficher la version de chacun des composants Docker).
 
-# Afficher TOUS les conteneurs Docker présents
+# Quelques commandes utiles
+## Afficher TOUS les conteneurs Docker présents
 ```bash
 docker ps -a
 ```
 
-Le conteneur est dans cet état car il n'a aucune opération supplémentaire à effectuer.
+Le conteneur est dans cet état car il n'a aucune opération supplémentaire à effectuer.  
 Pour le garder actif malgré cela, il doit avoir été lancé en mode interactif.
 
-# Créer un conteneur à partir d'une image
+## Créer un conteneur à partir d'une image
 ```bash
 docker run nom_image
 ```
-# Créer un conteneur avec un nom spécifique
+## Créer un conteneur avec un nom spécifique
 ```bash
 docker run --name=nom_conteneur nom_image
 ```
-# Créer un conteneur qui sera supprimé automatiquement une fois stoppé
+## Créer un conteneur qui sera supprimé automatiquement une fois stoppé
 ```bash
 docker run --rm nom_image
 ```
 
-# Démarrer un conteneur
+## Démarrer un conteneur
 ```bash
 docker start nom_ou_ID_conteneur
 ```
-# Démarrer un conteneur en arrière-plan (mode détaché)
+## Démarrer un conteneur en arrière-plan (mode détaché)
 ```bash
 docker start -d nom_ou_ID_conteneur
 ```
-# Démarrer un conteneur en mode interactif
+## Démarrer un conteneur en mode interactif
 ```bash
 docker start -it nom_ou_ID_conteneur
 ```
-# Arrêter un conteneur
+## Arrêter un conteneur
 ```bash
 docker stop nom_ou_ID_conteneur
 ```
 
-# Rechercher des images dans le hub docker
+## Rechercher des images dans le hub docker
 ```bash
 docker search termes_de_la_recherche
 ```
-# Télécharger une image depuis le hub
+## Télécharger une image depuis le hub
 ```bash
 docker pull nom_image
 ```
-# Créer une image Docker à partir d'un conteneur
-docker
-# Se connecter à un hub
+## Créer une image Docker à partir d'un conteneur
+```bash
+docker commit - m "message" nom_ou_ID_conteneur
+```
+
+## Se connecter à un hub
 ```bash
 docker login URL_ou_IP_serveur_distant
 ```
-# Se déconnecter du hub
+## Se déconnecter du hub
 ```bash
 docker logout
 ```
-# Charger une image vers le hub
+## Charger une image vers le hub
 ```bash
 docker push nom_image
 ```
-# Supprimer une image
-docker
-# 
+## Supprimer une image
+```bash
+docker image rm nom_image
+```
+## Supprimer les images non utilisées
 ```bash
 docker image prune
 ```
-# 
-docker
-# Consulter les logs d'un conteneur
+## Supprimer un conteneur
+```bash
+docker rm nom_ou_ID_conteneur
+```
+
+## Consulter les logs d'un conteneur
 ```bash
 docker logs nom_ou_ID_conteneur
 ```
-# Suivre les logs d'un conteneur
+## Suivre les logs d'un conteneur
 ```bash
 docker logs -f nom_ou_ID_conteneur
 ```
-# Récupérer l'adresse IP d'un conteneur
+## Récupérer l'adresse IP d'un conteneur
 ```bash
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nom_ou_ID_conteneur
 ```
-# Lister tous les réseaux du daemon Docker
+## Lister tous les réseaux du daemon Docker
 ```bash
 docker network ls
 ```
-# Récupérer les adresses IP de tous les conteneurs d'un réseau donné
+## Récupérer les adresses IP de tous les conteneurs d'un réseau donné
 ```bash
 docker network inspect bridge -f '{{json .Containers}}'
 ```
-# 
-docker
-# 
-docker
-# 
-docker
-# 
-docker
-# Créer un nouveau réseau Docker
+
+## Créer un nouveau réseau Docker
 ```bash
 docker network create nom_du_rx
 ```
-# Connecter un conteneur à un réseau Docker
+## Connecter un conteneur à un réseau Docker
 ```bash
 docker network connect nom_du_rx nom_ou_ID_conteneur
 ```
-# Déconnecter un conteneur d'un réseau Docker (Le conteneur doit être actif)
+## Déconnecter un conteneur d'un réseau Docker (Le conteneur doit être actif)
 ```bash
 docker network disconnect nom_du_rx nom_ou_ID_conteneur
 ```
-# Supprimer un réseau Docker
+## Supprimer un réseau Docker
 ```bash
 docker network rm nom_du_rx
 ```
